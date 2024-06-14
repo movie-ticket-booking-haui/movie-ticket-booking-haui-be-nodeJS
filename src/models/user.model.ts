@@ -50,22 +50,36 @@ export const getUserByEmail = async (email: String): Promise<UserResponse> => {
 const createdUserModel = async (user: AuthRequest): Promise<UserResponse> => {
   user.password = await bcrypt.hash(user.password, 7);
   const result = await pgPool.query<UserRequest>(
-    `INSERT INTO public."User" (email, password, phonenumber, fullname)
-        VALUES ($1, $2, $3, $4) RETURNING *`,
-    [user.email, user.password, user.phonenumber, user.fullname]
+    `INSERT INTO public."User" (email, password, fullname)
+        VALUES ($1, $2, $3) RETURNING *`,
+    [user.email, user.password, user.fullname]
   );
   const newUser = result.rows[0] as UserResponse;
   return newUser;
 };
 const getUserModels = async (): Promise<Array<UserResponse>> => {
-  const result = await pgPool.query(`SELECT *
+  const result =
+    await pgPool.query(`SELECT user_id, email, password, phonenumber, fullname, createdat, lastmodifieddate, role, gender
 	FROM public."User";`);
-  const users = result.rows[0] as Array<UserResponse>;
+  const users = result.rows as Array<UserResponse>;
+  console.log(users);
+
   return users;
+};
+const getUserModelById = async (userId: Number): Promise<UserResponse> => {
+  const result = await pgPool.query(
+    `SELECT *
+	FROM public."User" where user_id = $1;`,
+    [userId]
+  );
+  const user = result.rows[0];
+  console.log(user);
+  return user;
 };
 export const UserModel = {
   getUserModels,
   checkUserByEmail,
   createdUserModel,
   getUserByEmail,
+  getUserModelById,
 };

@@ -1,6 +1,9 @@
 import dotenv from "dotenv";
 import path from "path";
 import Joi, { ObjectSchema } from "joi";
+import { fileURLToPath } from "url";
+// Get the directory path of the current file
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config({ path: path.join(__dirname, "../../.env") });
 

@@ -19,7 +19,7 @@ const createAuthTokens = async (user: UserResponse) => {
   const accessToken = generateToken(
     user.user_id,
     tokenTypes.ACCESS,
-    config.jwt.secret,
+    "movieticketbookinghaui",
     accessTokenExpires
   );
   let expires = new Date();

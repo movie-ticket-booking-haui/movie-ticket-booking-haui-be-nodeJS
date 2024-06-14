@@ -18,17 +18,12 @@ const register = async (user: UserRequest): Promise<UserResponse> => {
 const login = async (user: AuthRequest): Promise<UserResponse> => {
   const userByEmail = await UserModel.getUserByEmail(user.email);
   if (!userByEmail) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      "Email or password not already exists!"
-    );
+    throw new ApiError(httpStatus.BAD_REQUEST, "Email not already exists!");
   }
   const checkPassword = await bcrypt.compare(
     user.password,
     userByEmail.password
   );
-  console.log(checkPassword);
-
   if (!checkPassword) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Login failed");
   }

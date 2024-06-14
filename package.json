@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "nodemon dist/index.js",
+    "start": " nodemon dist/index.js & npx tsc -w",
     "dev": "npx tsc -w & nodemon dist/index.js"
   },
   "author": "SonNguyen",
@@ -20,6 +20,7 @@
     "@types/http-status": "^1.1.2",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.12.12",
     "@types/nodemon": "^1.19.6",
     "bcrypt": "^5.1.1",
@@ -30,6 +31,7 @@
     "http-status": "^1.7.4",
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "pg": "^8.11.5",
     "pg-pool": "^3.6.2",
     "typescript": "^5.4.5"

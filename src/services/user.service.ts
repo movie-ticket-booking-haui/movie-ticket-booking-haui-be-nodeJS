@@ -18,4 +18,11 @@ const getUsers = async (): Promise<Array<UserResponse>> => {
   }
   return users;
 };
-export default { createdUser, getUsers };
+const getUserById = async (userId: Number): Promise<UserResponse> => {
+  const user = await UserModel.getUserModelById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+  }
+  return user;
+};
+export default { createdUser, getUsers, getUserById };
